@@ -2,7 +2,7 @@ import socket
 import threading
 
 host = '13.228.225.19'
-port = 4000
+port = 4335
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
