@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from firebase_admin import credentials, firestore
 from rebullet import Bullet, Input, Numbers, VerticalPrompt, YesNo, SlidePrompt, colors
 from rich import print
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
 load_dotenv()
 
@@ -54,8 +56,6 @@ def read_profile():
       print(f"[bold purple]Favorite {i}:[/bold purple] [cyan]{element['favorites'][i]}[/cyan]")
 
 def get_songs():
-  import spotipy
-  from spotipy.oauth2 import SpotifyOAuth
   client_id = os.getenv("spotify_client_id")
   client_secret = os.getenv("spotify_secret")
   redirect_uri = "https://open.spotify.com"
@@ -83,6 +83,12 @@ def get_songs():
       counter += 1
     else:
       pass
+
+def real_time_chat_menu():
+  """
+  - New chat
+  - 
+  """
 
 def exit_main_menu():
   sys.exit(0)
@@ -116,5 +122,3 @@ def main_menu():
   
 if __name__ == "__main__":
   main_menu()
-
-# print(project_name.result[1][1]) THIS GIVES THE RESULT
