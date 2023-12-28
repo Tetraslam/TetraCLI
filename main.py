@@ -76,8 +76,13 @@ def get_songs():
 
   for track in recently_played:
       last_played.append({"name": track['track']['name'], "artist": track['track']['artists'][0]['name']})
-
-  print(last_played)
+  counter = 0
+  for entry in last_played:
+    if counter != 10:
+      print(f"[cyan]{entry['name']}[/cyan] by [purple]{entry['artist']}[/purple]")
+      counter += 1
+    else:
+      pass
 
 def exit_main_menu():
   sys.exit(0)
