@@ -15,7 +15,7 @@ Planned release on PyPI
 - [ ] Real-time chat
 - [ ] Missed mail chats if I'm offline
 - [ ] My nvim config
-- [ ] Listen to my last played song on Spotify
+- [x] Listen to my last played song on Spotify
 - [ ] Read my blog posts
 - [ ] Check out my favorite content at the moment (blogs, movies & TV, videogames, books, anime, kdramas, etc.)
 - [ ] Coding challenge of the day

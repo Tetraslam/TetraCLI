@@ -53,6 +53,32 @@ def read_profile():
     for i in element['favorites']:
       print(f"[bold purple]Favorite {i}:[/bold purple] [cyan]{element['favorites'][i]}[/cyan]")
 
+def get_songs():
+  import spotipy
+  from spotipy.oauth2 import SpotifyOAuth
+  client_id = os.getenv("spotify_client_id")
+  client_secret = os.getenv("spotify_secret")
+  redirect_uri = "https://open.spotify.com"
+
+  sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id = client_id,
+                                                client_secret = client_secret, 
+                                                redirect_uri = redirect_uri,
+                                                scope = "user-library-read user-read-recently-played"))
+
+  recently_played = []
+  results = sp.current_user_recently_played()
+  recently_played.extend(results['items'])
+  while results['next']:
+      results = sp.next(results)
+      recently_played.extend(results['items'])
+      
+  last_played = []
+
+  for track in recently_played:
+      last_played.append({"name": track['track']['name'], "artist": track['track']['artists'][0]['name']})
+
+  print(last_played)
+
 def exit_main_menu():
   sys.exit(0)
 
@@ -60,7 +86,7 @@ def main_menu():
   bright_purple = colors.background["magenta"]
   bright_cyan = colors.bright(colors.foreground["cyan"])
   menu = Bullet("Welcome to TetraCLI! What would you like to do today?",
-             choices = ["Add a project", "Browse projects", "Look at Tetraslam's profile", "Exit TetraCLI"],
+             choices = ["Add a project", "Browse projects", "Look at Tetraslam's profile", "See my recently played tracks", "Exit TetraCLI"],
              word_color = bright_cyan,
              word_on_switch = bright_cyan,
              background_on_switch = bright_purple)
@@ -75,6 +101,9 @@ def main_menu():
     main_menu()
   elif choice == "Look at Tetraslam's profile":
     read_profile()
+    main_menu()
+  elif choice == "See my recently played tracks":
+    get_songs()
     main_menu()
   elif choice == "Exit TetraCLI":
     exit_main_menu()
