@@ -2,4 +2,4 @@
 port = 59024
 
 [browser]
-serverAddress = "0.0.0.0"
+serverAddress = "10.12.118.159"
