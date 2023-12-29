@@ -3,8 +3,8 @@ import streamlit as st
 import socket
 import threading
 
-host = '0.0.0.0'
-port = 59024
+host = '10.12.118.159'
+port = 55000
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
