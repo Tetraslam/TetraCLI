@@ -1,5 +1,0 @@
-[server]
-port = 59024
-
-[browser]
-serverAddress = "10.12.118.159"
