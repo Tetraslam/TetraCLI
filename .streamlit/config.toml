@@ -1,5 +1,5 @@
 [server]
-port = 7777
+port = 59024
 
 [browser]
 serverAddress = "0.0.0.0"

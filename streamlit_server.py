@@ -4,7 +4,7 @@ import socket
 import threading
 
 host = '0.0.0.0'
-port = 55000
+port = 59024
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
