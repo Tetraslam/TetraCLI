@@ -13,8 +13,7 @@ Planned release on PyPI
 - [x] Browse my projects
 - [x] Learn a bit about me
 - [x] Real-time chat
-- [ ] Missed mail chats if I'm offline
-- [ ] My nvim config
+- [x] Send me a message
 - [x] Listen to my last played song on Spotify
 - [ ] Read my blog posts
 - [ ] Check out my favorite content at the moment (blogs, movies & TV, videogames, books, anime, kdramas, etc.)

@@ -1,12 +1,16 @@
 import os
 import sys
+
 import firebase_admin
+import spotipy
 from dotenv import load_dotenv
 from firebase_admin import credentials, firestore
-from rebullet import Bullet, Input, Numbers, VerticalPrompt, YesNo, SlidePrompt, colors
+from rebullet import Bullet, Input, VerticalPrompt, colors
 from rich import print
-import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+from email_validator import validate_email, EmailNotValidError
+
+
 
 load_dotenv()
 
@@ -90,6 +94,37 @@ def real_time_chat_menu():
   - 
   """
 
+def send_message():
+  valid_email = False
+  message_content = VerticalPrompt([
+    Input("What's your name?"),
+    Input("And your email?"),
+    Input("Type in your message!")
+  ],
+                                   spacing = 1)
+  message_content.launch()
+  try:
+    emailinfo = validate_email(message_content.result[1][1], check_deliverability=True)
+    valid_email = True
+  except EmailNotValidError as e:
+    valid_email = False
+  if valid_email == True:
+    add_document("messages", message_content.result[0][1], {"Sender": message_content.result[0][1], "Email": message_content.result[1][1], "Message": message_content.result[2][1]})
+    
+  else:
+    print("Your email is invalid. Please try again.")
+    done = False
+    while done is False:
+      message_content.launch()
+      try:
+        emailinfo = validate_email(message_content.result[1][1], check_deliverability=True)
+        valid_email = True
+        done = True
+      except EmailNotValidError as e:
+        valid_email = False
+    add_document("messages", message_content.result[0][1], {"Sender": message_content.result[0][1], "Email": message_content.result[1][1], "Message": message_content.result[2][1]})
+    
+
 def exit_main_menu():
   sys.exit(0)
 
@@ -97,7 +132,7 @@ def main_menu():
   bright_purple = colors.background["magenta"]
   bright_cyan = colors.bright(colors.foreground["cyan"])
   menu = Bullet("Welcome to TetraCLI! What would you like to do today?",
-             choices = ["Add a project", "Browse projects", "Look at Tetraslam's profile", "See my recently played tracks", "Exit TetraCLI"],
+             choices = ["Add a project", "Browse projects", "Look at Tetraslam's profile", "See my recently played tracks", "Send me a message", "Exit TetraCLI"],
              word_color = bright_cyan,
              word_on_switch = bright_cyan,
              background_on_switch = bright_purple)
@@ -115,6 +150,9 @@ def main_menu():
     main_menu()
   elif choice == "See my recently played tracks":
     get_songs()
+    main_menu()
+  elif choice == "Send me a message":
+    send_message()
     main_menu()
   elif choice == "Exit TetraCLI":
     exit_main_menu()
